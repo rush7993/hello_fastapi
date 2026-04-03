@@ -1,0 +1,22 @@
+#
+name: fastapi를 aws linux에 배포하기
+
+on:
+  push:
+    branches: ["master"] # master 브렌치에 push될 때 아래의 job 실행
+
+jobs:
+  deploy:
+    runs-on: ubuntu-lates
+    steps:
+      - name: ssh 원격 명령
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: xxx
+          key: ${{ secrets.EC2_HOST }}
+          port: 22
+          script: |
+            cd ~/fastapi
+            git pull origin master
+            ... 여러가지 실행할 내용들 ...
